@@ -1,15 +1,21 @@
+import { adicionarAoCarrinho } from "./menuCarrinho";
 import { catalogo } from "./utilidades";
 
 export function renderizarCatalogo() {
   for (const produtoCatalogo of catalogo) {
-    const cartaoProduto = `<div class="flex flex-col border-solid border-2 border-sky-500 w-48 my-2 pb-2" id="card-produto-${produtoCatalogo.id}">
-        <img src="./assets/img/${produtoCatalogo.imagem}.jpg" alt="Produto 1">
-      <p class="marca">${produtoCatalogo.marca}</p>
-      <p>${produtoCatalogo.nome}</p>
-      <p>${produtoCatalogo.preco}</p>
-      <button class="bg-slate-950 text-slate-200 "><i class="fa-solid fa-cart-plus"></i></button>
+    const cartaoProduto = `<div class="flex flex-col w-48 my-2 p-2 justify-between group shadow-xl shadow-slate-400 rounded-lg " id="card-produto-${produtoCatalogo.id}">
+        <img class="group-hover:scale-110 duration-300 my-3 rounded-lg" src="./assets/img/${produtoCatalogo.imagem}.jpg" alt="Produto 1">
+      <p class="text-sm">${produtoCatalogo.marca}</p>
+      <p class="text-sm">${produtoCatalogo.nome}</p>
+      <p class="text-sm">${produtoCatalogo.preco}</p>
+      <button id="adicionar-${produtoCatalogo.id}" class="bg-slate-950 text-slate-200 hover:bg-slate-700"><i class="fa-solid fa-cart-plus"></i></button>
       </div>`;
 
     document.getElementById("container-produto").innerHTML += cartaoProduto;
+  }
+  for (const produtoCatalogo of catalogo) {
+    document
+      .getElementById(`adicionar-${produtoCatalogo.id}`)
+      .addEventListener("click", adicionarAoCarrinho);
   }
 }
