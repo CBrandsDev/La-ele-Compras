@@ -64,3 +64,5 @@ export const catalogo = [
       feminino: true,
     },
   ];
+
+  console.log(salve1);
