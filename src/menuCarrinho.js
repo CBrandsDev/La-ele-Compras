@@ -21,18 +21,39 @@ export function inicializarCarrinho() {
 }
 
 function incrementarQuantidadeProduto(idProduto) {
-  
+  idsProdutoCarrinhoComQuantidade[idProduto]++;
+  atualizarInformacaoQuantidade(idProduto);
+}
+function decrementarQuantidadeProduto(idProduto) {
+  idsProdutoCarrinhoComQuantidade[idProduto]--;
+  atualizarInformacaoQuantidade(idProduto);
+}
+function atualizarInformacaoQuantidade(idProduto) {
+  document.getElementById(`quantidade-${idProduto}`).innerText =
+    idsProdutoCarrinhoComQuantidade[idProduto];
 }
 
 export function adicionarAoCarrinho(idProduto) {
   if (idProduto in idsProdutoCarrinhoComQuantidade) {
     incrementarQuantidadeProduto(idProduto);
+    return;
   }
   idsProdutoCarrinhoComQuantidade[idProduto] = 1;
   const produto = catalogo.find((p) => p.id === idProduto);
   const containerProdutosCarrinho =
     document.getElementById("produtos-carrinho");
-  const cartaoProdutoCarrinho = `<article class="flex bg-slate-100 rounded-lg p-1 relative">
+  const elemntoArticle = document.createElement("article");
+  const articleClasses = [
+    "flex",
+    "bg-slate-100",
+    "rounded-lg",
+    "p-1",
+    "relative",
+  ];
+  for (const articleClass of articleClasses) {
+    elemntoArticle.classList.add(articleClass);
+  }
+  const cartaoProdutoCarrinho = `
   <button id="fechar-carrinho" class="top-0 right-2 absolute">
     <i class="fa-solid fa-circle-xmark text-slate-500 hover:text-slate-800"></i>
   </button>
@@ -45,12 +66,20 @@ export function adicionarAoCarrinho(idProduto) {
     <p class="text-green-700 text-lg">$${produto.preco}</p>
   </div>
   <div class="flex text-slate-950 items-end absolute bottom-0 right-2 text-lg">
-      <button>-</button>
+      <button id="decrementar-produto-${produto.id}">-</button>
       <p id="quantidade-${produto.id}" class="ml-2">${
     idsProdutoCarrinhoComQuantidade[produto.id]
   }</p>
-      <button class="ml-2">+</button>
+      <button id="incrementar-produto-${produto.id}" class="ml-2">+</button>
   </div>
-</article>`;
+`;
   containerProdutosCarrinho.innerHTML += cartaoProdutoCarrinho;
+
+  document
+    .getElementById(`incrementar-produto-${produto.id}`)
+    .addEventListener("click", () => incrementarQuantidadeProduto(produto.id));
+
+  document
+    .getElementById(`decrementar-produto-${produto.id}`)
+    .addEventListener("click", () => decrementarQuantidadeProduto(produto.id));
 }
