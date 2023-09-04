@@ -1,5 +1,7 @@
 import { catalogo } from "./utilidades";
 
+const idsProdutoCarrinhoComQuantidade = {};
+
 function abrirCarrinho() {
   document.getElementById("carrinho").classList.add("right-[0px]");
   document.getElementById("carrinho").classList.remove("right-[-360px]");
@@ -18,7 +20,15 @@ export function inicializarCarrinho() {
   botaoAbrirCarrinho.addEventListener("click", abrirCarrinho);
 }
 
+function incrementarQuantidadeProduto(idProduto) {
+  
+}
+
 export function adicionarAoCarrinho(idProduto) {
+  if (idProduto in idsProdutoCarrinhoComQuantidade) {
+    incrementarQuantidadeProduto(idProduto);
+  }
+  idsProdutoCarrinhoComQuantidade[idProduto] = 1;
   const produto = catalogo.find((p) => p.id === idProduto);
   const containerProdutosCarrinho =
     document.getElementById("produtos-carrinho");
@@ -26,11 +36,20 @@ export function adicionarAoCarrinho(idProduto) {
   <button id="fechar-carrinho" class="top-0 right-2 absolute">
     <i class="fa-solid fa-circle-xmark text-slate-500 hover:text-slate-800"></i>
   </button>
-  <img src="./assets/img/${produto.imagem}.jpg" alt="" class="h-24 rounded-lg" />
-  <div class="py-2">
+  <img src="./assets/img/${
+    produto.imagem
+  }.jpg" alt="" class="h-24 rounded-lg" />
+  <div class="p-2 flex flex-col justify-between">
     <p class="text-slate-900 text-sm">${produto.nome}</p>
     <p class="text-slate-400 text-xs">tamanho: M</p>
     <p class="text-green-700 text-lg">$${produto.preco}</p>
+  </div>
+  <div class="flex text-slate-950 items-end absolute bottom-0 right-2 text-lg">
+      <button>-</button>
+      <p id="quantidade-${produto.id}" class="ml-2">${
+    idsProdutoCarrinhoComQuantidade[produto.id]
+  }</p>
+      <button class="ml-2">+</button>
   </div>
 </article>`;
   containerProdutosCarrinho.innerHTML += cartaoProdutoCarrinho;
