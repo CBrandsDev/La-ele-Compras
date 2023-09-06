@@ -68,7 +68,7 @@ function desenharProdutoNoCarrinho(idProduto) {
   <div class="p-2 flex flex-col justify-between">
     <p class="text-slate-900 text-sm">${produto.nome}</p>
     <p class="text-slate-400 text-xs">tamanho: M</p>
-    <p class="text-green-700 text-lg">$${produto.preco}</p>
+    <p id="preco-produto" class="text-green-700 text-lg">$${produto.preco}</p>
   </div>
   <div class="flex text-slate-950 items-end absolute bottom-0 right-2 text-lg">
       <button id="decrementar-produto-${produto.id}">-</button>
@@ -81,6 +81,10 @@ function desenharProdutoNoCarrinho(idProduto) {
 
   elemntoArticle.innerHTML = cartaoProdutoCarrinho;
   containerProdutosCarrinho.appendChild(elemntoArticle);
+
+  const precoProduto = document.getElementById("preco-produto")
+
+  
 
   document
     .getElementById(`incrementar-produto-${produto.id}`)
