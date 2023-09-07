@@ -83,7 +83,8 @@ function desenharProdutoNoCarrinho(idProduto) {
   containerProdutosCarrinho.appendChild(elemntoArticle);
 
   const precoProduto = document.getElementById("preco-produto")
-
+ 
+  console.log(salve);
   
 
   document
