@@ -85,6 +85,7 @@ function desenharProdutoNoCarrinho(idProduto) {
   const precoProduto = document.getElementById("preco-produto")
  
   console.log(salve);
+  console.log(salve2);
   
 
   document
