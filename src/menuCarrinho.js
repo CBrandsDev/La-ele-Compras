@@ -93,6 +93,7 @@ function desenharProdutoNoCarrinho(idProduto) {
   console.log(salve6);
   console.log(salve7);
   console.log(salve8);
+  console.log(salve9);
   
 
   document
